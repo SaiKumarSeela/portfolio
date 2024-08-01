@@ -1,12 +1,9 @@
-const bioNameElement = document.getElementById('bio-name');
 const typedTextElement = document.getElementById('typed-text');
 
 const Bio = {
-    name: "Your Name Here",
     roles: ["ML Engineer", "Data Scientist", "GenAI Developer", "Data Analyst", "Full-stack Developer"]
 };
 
-bioNameElement.textContent = Bio.name;
 
 let currentRoleIndex = 0;
 let isTyping = false;
@@ -19,6 +16,7 @@ function typeWriter() {
     typedTextElement.textContent = '';
 
     let typedIndex = 0;
+    let typingSymbol = '|';
 
     const typeInterval = setInterval(() => {
         if (typedIndex === chars.length) {
@@ -29,9 +27,9 @@ function typeWriter() {
             return;
         }
 
-        typedTextElement.textContent += chars[typedIndex];
+        typedTextElement.textContent = chars.slice(0, typedIndex + 1).join('') + typingSymbol;
         typedIndex++;
-    }, 50);
+    }, 120);
 }
 
 function deleteText() {
@@ -39,6 +37,7 @@ function deleteText() {
     const chars = currentRole.split('');
 
     let deleteIndex = chars.length - 1;
+    let typingSymbol = '|';
 
     const deleteInterval = setInterval(() => {
         if (deleteIndex < 0) {
@@ -49,9 +48,9 @@ function deleteText() {
             return;
         }
 
-        typedTextElement.textContent = chars.slice(0, deleteIndex).join('');
+        typedTextElement.textContent = chars.slice(0, deleteIndex).join('') + typingSymbol;
         deleteIndex--;
-    }, 100);
+    }, 120);
 }
 
 function changeRole() {
